@@ -2,8 +2,13 @@
 
 ### 0. redis(noSQL DB 설치하기)
 
-```bash
 https://inpa.tistory.com/entry/REDIS-%F0%9F%93%9A-Window10-%ED%99%98%EA%B2%BD%EC%97%90-Redis-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0
+
+mac의 경우
+
+```bash
+brew install redis
+brew services start redis
 ```
 
 ### 1. 가상환경 생성 후 실행
@@ -77,7 +82,7 @@ def room(request, room_name, nickname):
     )
 ```
 
-### 5. chat/urls.py 작성
+### 6. chat/urls.py 작성
 
 ```python
 from django.urls import path
@@ -90,7 +95,7 @@ urlpatterns = [
 ]
 ```
 
-### 6. 프로젝트 내부의 urls에 방금 채팅앱의 urls 추가
+### 7. 프로젝트 내부의 urls에 방금 채팅앱의 urls 추가
 
 ```python
 from django.conf.urls import include
@@ -103,7 +108,7 @@ urlpatterns = [
 ]
 ```
 
-### 7. 템플릿 폴더에 html 파일 넣기
+### 8. 템플릿 폴더에 html 파일 넣기
 
 index.html
 
@@ -197,24 +202,7 @@ document.querySelector("#room-leave").onclick = function (e) {
 - 대화내용 전송 버튼 태그의 id를 <strong>chat-message-submit</strong>로 설정
 - 방 종료버튼의 id를 <strong>room-leave</strong>로 설정
 
-### 3. settings.py 수정
-
-1. INSTALLED_APPS에 channels와 chat앱 추가
-
-```python
-INSTALLED_APPS = [
-    "channels",
-    "chat",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-]
-```
-
-### 8. chat/consumer.py 만들기
+### 9. chat/consumer.py 만들기
 
 ```python
 # chat/consumers.py
@@ -323,7 +311,24 @@ websocket_urlpatterns = [
 ]
 ```
 
-### 10. settings.py에 ASGI관련 설정 추가
+### 9. settings.py 수정
+
+1. INSTALLED_APPS에 channels와 chat앱 추가
+
+```python
+INSTALLED_APPS = [
+    "channels",
+    "chat",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+]
+```
+
+2. settings.py에 ASGI관련 설정 추가
 
 ```python
 # Channels
@@ -341,7 +346,7 @@ CHANNEL_LAYERS = {
 
 - 여기서 hosts에 나중에 배포를 한다면 이 127.0.0.1을 배포 주소로 바꾸자.
 
-### 11. 프로젝트 폴더의 asgi.py 파일 수정
+### 10. 프로젝트 폴더의 asgi.py 파일 수정
 
 ```python
 import os
@@ -364,7 +369,7 @@ application = ProtocolTypeRouter(
 )
 ```
 
-12. 확인을 위한 runserver 실행
+### 11. 확인을 위한 runserver 실행
 
 ```bash
 python manage.py runserver
