@@ -24,13 +24,19 @@ source myvenv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. chat이라는 앱 만들기
+### 3. 프로젝트 생성
+
+```bash
+django-admin startproject config
+```
+
+### 4. chat이라는 앱 만들기
 
 ```bash
 django-admin startapp chat
 ```
 
-### 4. chat 폴더 안에 기본적인 모델을 만들기
+### 5. chat 폴더 안에 기본적인 모델을 만들기
 
 ```python
 class Messaage(models.Model):
@@ -55,7 +61,7 @@ class Room(models.Model):
 
 - 방 정보를 저장하는 Room 모델과, 메세지의 내용을 저장하는 Message 모델 생성
 
-### 5. chat/views.py 작성
+### 6. chat/views.py 작성
 
 ```python
 from django.shortcuts import render
@@ -82,7 +88,7 @@ def room(request, room_name, nickname):
     )
 ```
 
-### 6. chat/urls.py 작성
+### 7. chat/urls.py 작성
 
 ```python
 from django.urls import path
@@ -95,7 +101,7 @@ urlpatterns = [
 ]
 ```
 
-### 7. 프로젝트 내부의 urls에 방금 채팅앱의 urls 추가
+### 8. 프로젝트 내부의 urls에 방금 채팅앱의 urls 추가
 
 ```python
 from django.conf.urls import include
@@ -108,7 +114,7 @@ urlpatterns = [
 ]
 ```
 
-### 8. 템플릿 폴더에 html 파일 넣기
+### 9. 템플릿 폴더에 html 파일 넣기
 
 index.html
 
@@ -202,7 +208,7 @@ document.querySelector("#room-leave").onclick = function (e) {
 - 대화내용 전송 버튼 태그의 id를 <strong>chat-message-submit</strong>로 설정
 - 방 종료버튼의 id를 <strong>room-leave</strong>로 설정
 
-### 9. chat/consumer.py 만들기
+### 10. chat/consumer.py 만들기
 
 ```python
 # chat/consumers.py
@@ -298,7 +304,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 ```
 
-### 9. chat/rounting.py 추가
+### 11. chat/rounting.py 추가
 
 ```python
 # chat/routing.py
@@ -311,7 +317,7 @@ websocket_urlpatterns = [
 ]
 ```
 
-### 9. settings.py 수정
+### 12. settings.py 수정
 
 1. INSTALLED_APPS에 channels와 chat앱 추가
 
@@ -346,7 +352,7 @@ CHANNEL_LAYERS = {
 
 - 여기서 hosts에 나중에 배포를 한다면 이 127.0.0.1을 배포 주소로 바꾸자.
 
-### 10. 프로젝트 폴더의 asgi.py 파일 수정
+### 13. 프로젝트 폴더의 asgi.py 파일 수정
 
 ```python
 import os
@@ -369,7 +375,7 @@ application = ProtocolTypeRouter(
 )
 ```
 
-### 11. 확인을 위한 runserver 실행
+### 14. 확인을 위한 runserver 실행
 
 ```bash
 python manage.py runserver
